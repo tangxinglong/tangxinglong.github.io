@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>Navicat创建MySQL数据库索引教程 | TALENTED_MEN</title>
+  <title>债券的概述分类及业务场景 | TALENTED_MEN</title>
 
   
     
@@ -374,7 +374,7 @@
   
   <div class="title-box">
     <span class="title">
-      Navicat创建MySQL数据库索引教程
+      债券的概述分类及业务场景
     </span>
   </div>
   
@@ -391,45 +391,54 @@
       
       <div class="post-meta">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <span class="post-time">2021-07-07</span>
+        <span class="post-time">2021-07-14</span>
       </div>
       
       <div class="post-tags-categories">
         
+        <div class="tags">
+          <i class="iconfont icontag"></i>
+          
+            <a href="/tags/%E9%87%91%E8%9E%8D/" class="">
+              金融
+            </a>
+          
+            <a href="/tags/%E5%80%BA%E5%88%B8/" class="">
+              债券
+            </a>
+          
+        </div>
+        
+        
+        <div class="categories">
+          <i class="iconfont iconbookmark1"></i>
+          
+            <a href="/categories/%E5%80%BA%E5%88%B8/" class="">
+              债券
+            </a>
+          
+        </div>
         
       </div>
       <div class="post-content">
-        <h2 id="索引初步"><a href="#索引初步" class="headerlink" title="索引初步"></a>索引初步</h2><p>MySQL索引的建立对于MySQL的高效运行是很重要的，索引可以<code>大大提高MySQL的检索速度</code>。</p>
-<p>拿汉语字典的目录页（索引）打比方，我们可以按拼音、笔画、偏旁部首等排序的目录（索引）快速查找到需要的字。</p>
-<p>索引分单列索引、唯一索引、组合索引。单列索引，即一个索引只包含单个列，一个表可以有多个单列索引；唯一索引，即索引列的值必须唯一，但允许有空值。 创建主键的时候回自动创建唯一索引。组合索引，即一个索引包含多个列。</p>
-<p>创建索引时，你需要确保该索引是应用在 SQL 查询语句的条件(一般作为 WHERE 子句的条件)。</p>
-<p>实际上，索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录。</p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件。</p>
-<p>建立索引会占用磁盘空间的索引文件。</p>
-<h2 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h2><p><img "" class="lazyload placeholder" data-original="https://img-blog.csdnimg.cn/20201219142922501.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvcDA4Mjg=,size_16,color_FFFFFF,t_70#pic_center#pic_center" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="在这里插入图片描述"></p>
-<h2 id="实验准备"><a href="#实验准备" class="headerlink" title="实验准备"></a>实验准备</h2><p>一个2千万左右的数据表（当然不是手写）</p>
-<p>创建索引：Navicat 15 for MySQL (图形化工具)</p>
-<h2 id="1、新建一个数据库"><a href="#1、新建一个数据库" class="headerlink" title="1、新建一个数据库"></a>1、新建一个数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database test <span class="keyword">default</span> <span class="type">character</span> <span class="keyword">set</span> utf8; </span><br></pre></td></tr></table></figure>
-<h2 id="2、新建一个数据表"><a href="#2、新建一个数据表" class="headerlink" title="2、新建一个数据表"></a>2、新建一个数据表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> testsql (</span><br><span class="line">    id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">PRIMARY</span> KEY comment <span class="string">&#x27;自增主键&#x27;</span>,</span><br><span class="line">    dept tinyint <span class="keyword">not</span> <span class="keyword">null</span> comment <span class="string">&#x27;部门id&#x27;</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">30</span>) comment <span class="string">&#x27;用户名称&#x27;</span>,</span><br><span class="line">    create_time datetime <span class="keyword">not</span> <span class="keyword">null</span> comment <span class="string">&#x27;注册时间&#x27;</span>,</span><br><span class="line">    last_login_time datetime comment <span class="string">&#x27;最后登录时间&#x27;</span> </span><br><span class="line">) comment <span class="string">&#x27;测试表&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="3、写入数据"><a href="#3、写入数据" class="headerlink" title="3、写入数据"></a>3、写入数据</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> testsql <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="string">&#x27;user_1&#x27;</span>, <span class="string">&#x27;2018-01-01 00:00:00&#x27;</span>, <span class="string">&#x27;2018-03-01 12:00:00&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="4、赋值"><a href="#4、赋值" class="headerlink" title="4、赋值"></a>4、赋值</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="variable">@i</span><span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="5、做一个表的倍数增加（不然几千万的数据写一年都写不完）"><a href="#5、做一个表的倍数增加（不然几千万的数据写一年都写不完）" class="headerlink" title="5、做一个表的倍数增加（不然几千万的数据写一年都写不完）"></a>5、做一个表的倍数增加（不然几千万的数据写一年都写不完）</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> testsql(dept, name, create_time, last_login_time) </span><br><span class="line"><span class="keyword">select</span> <span class="keyword">left</span>(rand()<span class="operator">*</span><span class="number">10</span>,<span class="number">1</span>) <span class="keyword">as</span> dept,   #随机生成<span class="number">1</span><span class="operator">~</span><span class="number">10</span>的整数</span><br><span class="line">        concat(<span class="string">&#x27;user_&#x27;</span>,<span class="variable">@i</span>:<span class="operator">=</span><span class="variable">@i</span><span class="operator">+</span><span class="number">1</span>),   #按序列生成不同的name</span><br><span class="line">        date_add(create_time,<span class="type">interval</span> <span class="operator">+</span><span class="variable">@i</span><span class="operator">*</span><span class="built_in">cast</span>(rand()<span class="operator">*</span><span class="number">100</span> <span class="keyword">as</span> signed) <span class="keyword">SECOND</span>), #生成有时间大顺序随机注册时间</span><br><span class="line">        date_add(date_add(create_time,<span class="type">interval</span> <span class="operator">+</span><span class="variable">@i</span><span class="operator">*</span><span class="built_in">cast</span>(rand()<span class="operator">*</span><span class="number">100</span> <span class="keyword">as</span> signed) <span class="keyword">SECOND</span>), <span class="type">interval</span> <span class="operator">+</span> <span class="built_in">cast</span>(rand()<span class="operator">*</span><span class="number">1000000</span> <span class="keyword">as</span> signed) <span class="keyword">SECOND</span>) #生成有时间大顺序的随机的最后登录时间</span><br><span class="line"><span class="keyword">from</span> testsql;</span><br></pre></td></tr></table></figure>
-<p>一直重复运行上面的命令 (数据成倍增长)</p>
-<p>到后面的速度会越来越慢，可能要几分钟，这是正常的</p>
-<h2 id="6、查看"><a href="#6、查看" class="headerlink" title="6、查看"></a>6、查看</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> testsql;</span><br></pre></td></tr></table></figure>
-<p>这行命令可以查看数据表已经达到了多少列</p>
-<p>直到数字出现了几千万行就可以停止了</p>
-<p>（实几百万行已经可以看到效果了）</p>
-<p>查看日志</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> &quot;%_buffer%&quot;;</span><br></pre></td></tr></table></figure>
-<h2 id="7、实验"><a href="#7、实验" class="headerlink" title="7、实验"></a>7、实验</h2><p>这个时候数据表已经达到了几千万<br>可以查询以下几千万数据中的某一行</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">from</span> t <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;user_500000&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>可以看到搜索速度很慢</p>
-<h2 id="8、创建索引"><a href="#8、创建索引" class="headerlink" title="8、创建索引"></a>8、创建索引</h2><p>选中数据表，单击右键<img "" class="lazyload placeholder" data-original="https://img-blog.csdnimg.cn/20201219142531382.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvcDA4Mjg=,size_16,color_FFFFFF,t_70#pic_center#pic_center" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="在这里插入图片描述"><br>找到索引<br>名字可以随便取<br>字段我选择的是name（其他也可以）<br><img "" class="lazyload placeholder" data-original="https://img-blog.csdnimg.cn/20201219142616166.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvcDA4Mjg=,size_16,color_FFFFFF,t_70#pic_center#pic_center" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="在这里插入图片描述"><br>类型我选的是NORMAL,方法用的是BTREE<br><img "" class="lazyload placeholder" data-original="https://img-blog.csdnimg.cn/20201219142704607.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvcDA4Mjg=,size_16,color_FFFFFF,t_70#pic_center#pic_center" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="在这里插入图片描述"><br>保存，可能要等几分钟，这时候不要乱动<img "" class="lazyload placeholder" data-original="https://img-blog.csdnimg.cn/20201219142755205.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvcDA4Mjg=,size_16,color_FFFFFF,t_70#pic_center#pic_center" src="https://img10.360buyimg.com/ddimg/jfs/t1/157667/29/9156/134350/603c6445Ebbc9cabe/41219c5d36d45072.gif" alt="在这里插入图片描述"></p>
-<h2 id="9、实验效果"><a href="#9、实验效果" class="headerlink" title="9、实验效果"></a>9、实验效果</h2><p>这个时候重新搜索，可以看到延迟已经没有了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">from</span> t <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;user_500000&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>以上就是MySQL数据库索引的教程</p>
-
+        <h1 id="债券的概述分类及业务场景"><a href="#债券的概述分类及业务场景" class="headerlink" title="债券的概述分类及业务场景"></a>债券的概述分类及业务场景</h1><h2 id="（一）债券的定义"><a href="#（一）债券的定义" class="headerlink" title="（一）债券的定义"></a>（一）债券的定义</h2><p>债券是一种金融契约也是有价证券，是政府、金融机构、工商企业等直接向社会借债筹借资金时，向投资者发行，同时承诺按一定利率支付利息并按约定条件偿还本金的债权债务凭证。</p>
+<h2 id="（二）债券的基本要素"><a href="#（二）债券的基本要素" class="headerlink" title="（二）债券的基本要素"></a>（二）债券的基本要素</h2><ul>
+<li>票面价值</li>
+<li>利率</li>
+<li>偿还期限</li>
+<li>发行价格</li>
+<li>付息方式</li>
+<li>发行主体</li>
+<li>发行额度</li>
+<li>信用评级</li>
+</ul>
+<h2 id="（三）债券的特征"><a href="#（三）债券的特征" class="headerlink" title="（三）债券的特征"></a>（三）债券的特征</h2><ul>
+<li>偿还</li>
+<li>流通</li>
+<li>安全</li>
+<li>收益</li>
+</ul>
+<h2 id="（四）债券的分类"><a href="#（四）债券的分类" class="headerlink" title="（四）债券的分类"></a>（四）债券的分类</h2>
       </div>
       
         <div class="copyright">
@@ -439,7 +448,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2021/07/07/Navicat创建MySQL数据库索引教程/" target="_blank" title="Navicat创建MySQL数据库索引教程">http://example.com/2021/07/07/Navicat创建MySQL数据库索引教程/</a>
+    <a href="/2021/07/14/债券的概述分类及业务场景/" target="_blank" title="债券的概述分类及业务场景">http://example.com/2021/07/14/债券的概述分类及业务场景/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -457,39 +466,21 @@
 
 
 
-  
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img lazyload" data-original="/medias/1.jpg" style="background-size: cover; 
-      background-position: center center;">
-    </div>
-    <a href="/2021/07/14/%E5%80%BA%E5%88%B8%E7%9A%84%E6%A6%82%E8%BF%B0%E5%88%86%E7%B1%BB%E5%8F%8A%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF/" class="post-nav-link">
-      <div class="title">
-        <i class="fa fa-angle-left"></i> 上一篇:
-        <div>债券的概述分类及业务场景</div>
-      </div>
-      
-      <!-- <div class="content">
-        债券的概述分类及业务场景（一）债券的定义债券是一种金融契约也是有价证券，是政府、金融机构、工商企业等直接向社会借债筹借资
-      </div> -->
-    </a>
-  </div>
-
 
 
   
   <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img lazyload" data-original="/medias/15.jpg" style="background-size: cover; 
+    <div class="post-nav-img lazyload" data-original="/medias/1.jpg" style="background-size: cover; 
       background-position: center center;">
     </div>
-    <a href="/2021/07/07/%E5%85%B3%E4%BA%8EMyBatis-Plus%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%94%9F%E6%88%90id%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98%E7%9A%84%E5%A4%84%E7%90%86/" class="post-nav-link">
+    <a href="/2021/07/07/Navicat%E5%88%9B%E5%BB%BAMySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E6%95%99%E7%A8%8B/" class="post-nav-link">
       <div class="title">
         下一篇: <i class="fa fa-angle-right"></i>
-        <div>关于MyBatis-Plus雪花算法生成id精度丢失问题的处理</div>
+        <div>Navicat创建MySQL数据库索引教程</div>
       </div>
       <!-- <div class="content">
-        MyBatis-Plus3.3.0开始，默认使用雪花算法首先插入一条数据 生成的id长这样
-
-1400693801379
+        索引初步MySQL索引的建立对于MySQL的高效运行是很重要的，索引可以大大提高MySQL的检索速度。
+拿汉语字典的目录
       </div> -->
     </a>
   </div>
