@@ -166,7 +166,7 @@ pre:hover::-webkit-scrollbar-thumb:hover,
   color: #fff;
 }
 .bg-floor {
-  background: url("https://i.loli.net/2021/07/07/iEabPCyFuDe7Qom.jpg");
+  background: transparent;
   background-size: cover;
   transition: all 0.3s;
 }
@@ -1045,7 +1045,7 @@ pre:hover::-webkit-scrollbar-thumb:hover,
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: rgba(0,0,0,0);
+  background: rgba(44,128,197,0.7);
 }
 .footer .footer-main {
   text-align: center;
